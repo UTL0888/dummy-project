@@ -1,13 +1,41 @@
-git config --global user.email "Ajay.suneja1993@gmail.com"
-git config --global user.name "Ajay Suneja"
 
-basic Commands
+git config --global user.email "rahulsinghtechutl0888@gmail.com"
+git config --global user.name "utl0888"
+
+basic Commands make git project
 
 1) git init
-2) git add [filename] -A
+2) git add [filename] -add
 3) git status
-4) git commit -m "msg"
+4) git commit -m "index.html and cmd file added"
 5) git remote add origin repoName
 6) git push origin master
 7) git clone repoName
 8) git pull origin master
+
+
+log 
+
+git log
+git log -p
+git log --oneline
+git log -2
+git log -i --grep="text"
+git log -i -G="Text in code"
+git log -i --author="Ajay Suneja"
+git log --start
+
+angular  commond  
+
+npm install -g @angular/cli
+ng new my-first-project
+cd my-first-project
+ng serve
+
+ng g  c componentName
+
+ng g class className
+ng g s serviceName 
+
+ng generate module ModuleNmae --routing
+ng g  c ModuleNmae/componentName
