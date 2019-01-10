@@ -1,0 +1,510 @@
+Project Notes
+Core Features
+    Project Overview and Setup
+    Bootstrap Integration
+    Project Structure and Create All Modules
+    Create Routing and Navigation
+    Theme Integration and Create Home Page
+    Deployment on live server
+Fronted Features
+    Blog listing page on fronted
+    Blog detail page on fronted
+    Show static page like as About, Contact etc.
+    Create contact form and data send at email
+Admin Features
+    Admin Login
+    Admin Dashboard
+Admin Logout
+    CRUD #1 Admin create blog post
+    CRUD #2 Admin can view blog list
+    CRUD #3 Admin can edit blog post
+    CRUD #4 Admin can delete blog post
+    Admin can view static pages like as About, Contact, etc.
+    Admin can view list of categories
+
+ Project Setup
+    Install the Angular CLI
+        npm install -g @angular/cli
+    Create new project using below command    
+        ng new blogger
+    Load project directory "blogger"   
+        cd blogger
+    Now run this project
+        ng serve --open  
+Bootstrap Integration
+    Step1:
+    Run this command on your angular app
+        npm install bootstrap
+    Step2:
+        Go to node_modules directory see bootstrap directorY Its contain css and js file  
+    Step3:
+        Download latest jquery library from this https://jquery.com/download/. Upload this file in folder node_modules/bootstrap/dist/js
+
+        Now edit angular.json file for adding css and js. This file is available in your project root folder.
+
+        Add bootstrap.min.css in side architect->build->options: "styles"object
+
+        node_modules/bootstrap/dist/css/bootstrap.min.css
+
+        Add bootstrap.min.js in architect->build->options: "scripts"object
+
+        node_modules/bootstrap/dist/js/bootstrap.min.js
+
+        angular.json file.
+
+
+    Project Structure and Create Modules and Components **********************
+        Creating all modules
+            blogpost
+            cmspage
+            admin
+            auth  
+        Components, Service and Routing Module
+            header
+            banner
+            footer
+            page-not-found 
+            blogpost (module)
+                blogpost-featured
+                blogpost-list
+                blogpost-detail
+                blogpost-recent
+                categories
+                blogpost-service
+                blogpost-routing-module
+            cmspage (module)
+                page
+                contact-form
+                cmspage-service
+                cmspage-routing-module 
+                Note:* Admin components will create later. 
+
+                Creating modules  ====================================
+                    ng generate module blogpost --routing
+                    ng generate module cmspage --routing
+                    ng generate module admin --routing
+                    ng generate module auth --routing
+                Creating components
+                    ng generate component header
+                    ng generate component footer
+                    ng generate component banner
+                    ng generate component page-not-found
+                Creating components for blogpost module
+                    ng generate component blogpost/blogpost-featured
+                    ng generate component blogpost/blogpost-list  
+                    ng generate component blogpost/blogpost-detail
+                    ng generate component blogpost/blogpost-recent
+                    ng generate component blogpost/categories
+                Creating service for Blogpost Module 
+                    ng generate service blogpost/blogpost
+                Creating components for cmspage module
+                    ng generate component cmspage/page
+                    ng generate component cmspage/contact-form 
+                Creating service for cmspage module 
+                    ng generate service cmspage/cmspage 
+                Edit app.module.ts
+                    mport BlogpostModule and CmspageModule in app.module.tS
+                Edit blogpost/blogpost.module.ts
+                    Export BlogpostFeaturedComponent component for showing this component on root component app.component.html
+                Edit app.component.html
+                    Edit app.component.html for header, banner, featured blogpost and footer 
+    
+    Theme Integration and Create Home Page**********************************4
+        Integrate theme and create home page in this project.
+        src/styles.css
+            Edit src/styles.css with below code
+        Images
+            Upload all images in src/assets/images folder
+        header.component.html
+            Edit file src/app/header/header.component.html
+
+        banner.component.html
+            Edit file src/app/banner/banner.component.html
+        footer.component.html
+            Edit file src/app/footer/footer.component.html 
+        blogpost-featured.component.html
+            Edit file src/app/blogpost/blogpost-featured/blogpost-featured.component.html      
+     Create Routing, Navigation and Inner Page ******************************5
+        Show component on only Home Page
+        Show only banner and featured blog post on home page.
+
+            Edit file src/app/app.component.ts
+
+        import Router and set router variable in constructor as public like this constructor(public router: Router) {} 
+
+        Edit file src/app/app.component.html
+
+            check banner and featured component on home page *ngIf="router.url == '/'"  
+
+        Root Routing Module
+            Edit file src/app/app-routing.module.ts
+
+            Import component PageNotFoundComponent for set route of home page and 404 error page (page not found).
+
+            Set route for home page {path: '', redirectTo: '', pathMatch: 'full'}
+
+            Set route for 404 error page {path: '**', component: PageNotFoundComponent}
+        Child Route blogpost-routing.module.ts
+            Edit file src/app/blogpost/blogpost-routing.module.ts
+
+            Import component BlogpostListComponent and BlogpostDetailComponent for set route of blog listing and blog detail page.
+
+            Add id parameter for getting single blog record from server.
+
+         Child Route cmspage-routing.module.ts
+            Edit file src/app/cmspage/cmspage-routing.module.ts
+
+            Import component PageComponent and ContactFormComponent for set route of static pages like as about, service etc. and contact form page.
+
+            In page route, added parameter slug for getting single page from server   
+        
+         Root Module app.module.ts
+            All modules like as BlogpostModule and CmspageModule should be imported in app.module.ts
+
+        All modules should be imports array before AppRoutingModule. Sequence is important.
+        Change link in Header component
+            Edit file src/app/header/header.component.html for add routerLink and routerLinkActive respectively menu link and active class
+        Theme integration of blog listing page
+            Edit file src/app/blogpost/blogpost-list/blogpost-list.component.ts for add title    
+
+         Edit src/app/blogpost/blogpost-list/blogpost-list.component.html   {{TITLE}} 
+
+        Theme integration of blog detail page
+            Edit file src/app/blogpost/blogpost-detail/blogpost-detail.component.html
+
+            Also load two components app-blogpost-recent and app-categories on this page for showing recent post and categories.  
+        Theme integration of recent blog post
+            Edit src/app/blogpost/blogpost-recent/blogpost-recent.component.html   
+
+        Theme integration of categories listing
+            Edit src/app/blogpost/categories/categories.component.html
+
+         Theme integration of cms pages
+            Edit src/app/cmspage/page/page.component.html
+
+            Static pages like as about, service etc.  
+        Theme integration of contact form page
+            Edit src/app/cmspage/contact-form/contact-form.component.html    
+            Theme integration of 404 page
+            Edit component file src/app/page-not-found/page-not-found.component.ts
+
+            Import Rotuer and create founction gotoHome() for navigate home page. 
+
+        Edit component file src/app/page-not-found/page-not-found.component.html
+
+                    Call gotoHome() on click button Go to Home 
+
+    Service and Http Client, Blog Listing and Featured Blog**********************6
+        Create a Blogpost class
+            Create a Blogpost class in its own file in the src/app/blogpost folder.
+                ng generate class blogpost/blogpost
+
+        Define field in blogpost class  DATATYPE
+        Edit Root AppModule
+            Before you can use the HttpClient, you need to import the Angular HttpClientModule in the root AppModule.
+
+            import Title service in the root AppModule for set document title
+
+            Edit file src/app/app.module.ts
+
+        Blogpost Service and Http Client
+            Edit service file src/app/blogpost/blogpost.service.ts
+
+            Import Blogpost Class for typed data
+
+            Import HttpClient and HttpErrorResponse for get and post response from server and handle http error response
+
+            Import throwError from rxjs liabray
+
+            Import catchError from rxjs/operators
+
+            Define server url and create methods getBlogs and getFeaturedBlogs
+
+            Create handleError private method for handle http error response.    
+
+         Import Service in blogpost-list.component.ts
+            Edit component file src/app/blogpost/blogpost-list/blogpost-list.component.ts
+
+            Import BlogpostService service.
+
+            Import Blogpost for typed data.
+
+            Import Title service for set document title.
+
+            Get blog list by subsribe getBlogs() method.  
+        HTML of Bloglist
+            Edit file src/app/blogpost/blogpost-list/blogpost-list.component.html for show dynamic data.
+
+            And show error if http error response will come. 
+
+         Dynamic featured blog on home page
+            Edit component file src/app/blogpost/blogpost-featured/blogpost-featured.component.ts
+
+            Import BlogpostService service.
+
+            Import Blogpost for typed data.      
+        HTML of Featured Blogs
+            Edit file src/app/blogpost/blogpost-featured/blogpost-featured.component.html for show dynamic data.
+
+            And show error if http error response will come.
+
+         Create API in CodeIgniter
+            Controller file Api.php  
+            Model file Api_model.php    
+            Database - MySQL
+    Service and Http Client for Blog Detail, Recent Blog and Categories  ***************7
+        Create a Category Class
+            Create a Category class in its own file in the src/app/blogpost folder.
+            Define field in category class
+        Edit Blogpost Service and Http Client
+            Edit service file src/app/blogpost/blogpost.service.ts
+
+            Import Category Class for typed data
+
+            Create method getBlog, getRecentBlogs and getCategories for showing blog detail, recent blogs and categories on blog detail page.
+        Change Link in Bloglist and Featured Blog
+            Edit file src/app/blogpost/blogpost-list/blogpost-list.component.html for button Read more..
+
+            Edit file src/app/blogpost/blogpost-featured/blogpost-featured.component.html  
+           //routerLink 
+         Import Service in blogpost-detail.component.ts
+            Edit component file src/app/blogpost/blogpost-detail/blogpost-detail.component.ts
+
+            Import Router, ActivatedRoute, ParamMap from router
+
+            Import BlogpostService service.
+
+            Import Blogpost for typed data.
+
+            Import Title service for set document title.
+
+            Import Observable from rxjs
+
+            Import switchMap from rxjs/operators
+
+            Get blog by subsribe getBlog() method.       
+        HTML of Blog Detail
+            Edit file src/app/blogpost/blogpost-detail/blogpost-detail.component.html for show dynamic data. 
+
+         Import Service in blogpost-recent.component.ts
+            Edit component file src/app/blogpost/blogpost-recent/blogpost-recent.component.ts
+
+            Import BlogpostService service.
+
+            Import Blogpost for typed data.
+
+         HTML of Recent Blog
+            Edit file src/app/blogpost/blogpost-recent/blogpost-recent.component.html for show dynamic data.   
+
+        Import Service in categories.component.ts
+            Edit component file src/app/blogpost/categories/categories.component.ts
+
+            Import BlogpostService service.
+
+            Import Category for typed data.
+
+        HTML of Categories
+            Edit file src/app/blogpost/categories/categories.component.html for show dynamic data. 
+        
+        Service and Http Client for Create Static Pages**********************7
+            Create a Page Class
+                Create a Page class in its own file in the src/app/cmspage folder 
+                    ng generate class cmspage/page
+                Define field in page class
+                    Cmspage Service and Http Client
+                        Edit service file src/app/cmspage/cmspage.service.ts
+
+                        Import Page Class for typed data
+
+                        Create method getPage for showing page.   
+
+        Import Service in page.component.ts
+                Edit component file src/app/cmspage/page/page.component.ts
+
+                Import ActivatedRoute, ParamMap from router
+
+                Import CmspageService service.
+
+                Import Page for typed data.
+
+                Import switchMap from rxjs/operators
+
+                Get blog by subsribe getBlog() method.  
+
+         HTML of Page
+            Edit file src/app/cmspage/page/page.component.html for show dynamic data   
+
+        Edit header.component.ts
+            Edit file src/app/header/header.component.ts for set page title on click on menu item.
+
+            Create method of setPageTitle for set title.
+
+            Import Title from platform-browser.   
+
+        Edit header.component.html
+            Edit file src/app/header/header.component.html and call setPageTitle method on click event binding of menu items.
+
+        Create Contact Form and Send Data on Email**************************8
+            Create a Contact Class
+                Create a Contact class in its own file in the src/app/cmspage folder. 
+            Define field in contact class
+
+            Cmspage Module
+                Edit file src/app/cmspage/cmspage.module.ts
+                Import FormsModule
+                You add the FormsModule to the list of imports defined in the @NgModule decorator. This gives the application access to all of the template-driven forms features, including ngModel.  
+
+            Cmspage Service and Http Client
+                Edit service file src/app/cmspage/cmspage.service.ts
+                Import Contact Class for typed data
+                Import HttpHeaders for set headers.
+               Create httpOptions object for set content type.
+               Create method contactForm for send data to server. 
+
+            Import Service in contact-form.component.ts
+                Edit component file src/app/cmspage/contact-form/contact-form.component.ts
+                Import Router for navigate url
+                Import CmspageService service.
+                Import Contact for typed data. 
+
+            HTML of Contact Form
+                Edit file src/app/cmspage/contact-form/contact-form.component.html. 
+
+            Change is style.css
+                Edit css file src/styles.css  
+
+             Changes in API
+                Edit controller file Api.php and create two more mehtods contact() and sendemail()   
+    Login and Logout using Web API with Token Based Authentication*****************9
+        Admin Module
+            Admin and Auth module already created. Please see this link Project Structure and Create Modules and Components
+            Next, Generate the supporting components.
+            ng generate component admin/admin-dashboard
+
+                ng generate component admin/admin
+                ng generate component admin/manage-blogs
+                ng generate component admin/manage-categories
+                ng generate component admin/manage-pages
+                ng generate component auth/login   
+        AuthService 
+            ng generate service auth/auth
+                The AuthGuard should call an application service that can login a user and retain information about the current user. Generate a new AuthService in the auth folder.
+                Create method login, logout and getAuthorizationToken
+                Edit file auth.service.ts 
+
+        Guard the admin feature
+            Generate an AuthGuard in the auth folder.
+                ng generate guard auth/auth
+
+                The new admin feature should be accessible only to authenticated users.
+                You protected the admin feature module from unauthorized access.
+                This is a general purpose guard—you can imagine other features that require authenticated users—so you generate an AuthGuard in the auth folder.
+                You can also protect child routes with the CanActivateChild guard. The CanActivateChild guard is similar to the CanActivate guard. The key difference is that it runs before any child route is activated.
+        Edit file auth.guard.ts
+
+        Edit app.module.ts
+            Import the AdminModule and AuthModule into app.module.ts and add it to the imports array to register the admin routes.
+
+        Admin routing configuration:
+            Component-less route: grouping routes without a component
+            Import the AuthGuard class, and update the admin route with a canActivate guard property.
+            Edit file admin/admin-routing.module.ts    
+
+            The admin feature module contains the AdminComponent used for routing within the feature module, a dashboard route and 3 components to manage blogs, categories and pages.
+
+            Edit file src/app/admin/admin/admin.component.html   
+
+         AuthInterceptor
+            HTTP Interception is a major feature of @angular/common/http. With interception, you declare interceptors that inspect and transform HTTP requests from your application to the server. The same interceptors may also inspect and transform the servers responses on their way back to the application.    
+                ng generate class http-interceptors/auth-interceptor   
+                mport AuthService into http-interceptors/auth-interceptor.ts
+
+                Consider creating a "index.ts" file that gathers all the interceptor providers into an httpInterceptorProviders array, starting with this first one, the AuthInterceptor.
+                http-interceptors/index.ts 
+
+                Note the multi: true option. This required setting tells Angular that HTTP_INTERCEPTORS is a token for a multiprovider that injects an array of values, rather than a single value.
+                Then import and add it to the AppModule providers array like this
+                Import httpInterceptorProviders into app.module.ts
+
+        Auth Routing
+            Import LoginComponent into auth-routing.module.ts and create route for login
+
+        AuthModule
+            Import ReactiveFormsModule into auth.module.ts         
+
+        Login Component
+            Import AuthService, FormBuilder, Validators, FormGroup, Router into login.component.ts 
+
+        Create login form login.component.html
+        Header Component
+            Import AuthService into header.component.ts and get isLoggedIn.   
+            Edit header component.html for login, logout and admin dashboard.
+
+        Edit both file blogpost.service.ts and cmspage.service.ts
+            Import HttpBackend into blogpost.service.ts and cmspage.service.ts
+
+            Interceptors sit between the HttpClient interface and the HttpBackend.
+
+            When injected, HttpBackend dispatches requests directly to the backend, without going through the interceptor chain.
+
+            In this way the service is not intercepted by AuthInterceptor.   
+
+            Replace this code 
+
+              constructor(http: HttpClient) {} 
+
+              WITH
+            private http: HttpClient;
+
+            constructor(handler: HttpBackend) {
+            this.http = new HttpClient(handler);
+            }
+        
+        CRUD #1 Admin can View Blog List 
+            Blog Model
+                Create a Blog class in its own file in the src/app/models folder.
+                    ng generate class models/blog
+
+        Define field in Blog class
+
+        Blog Service
+            Create blog service in services folder.
+                ng generate service services/blog
+                    Import Blog, HttpClient, HttpErrorResponse, throwError, catchError into src/app/services/blog.service.ts
+                    Service file src/app/services/blog.service.ts
+        
+        Update AuthInterceptor
+            Open AuthInterceptor file src/app/http-interceptors/auth-interceptor.ts and replace this code { Authorization: `Bearer ${authToken}` } to { Authorization: authToken }
+
+         Manage Blog Component
+            Import BlogService and Blog into src/app/admin/manage-blogs/manage-blogs.component.ts   
+
+            Open component html file src/app/admin/manage-blogs/manage-blogs.component.html
+
+    CRUD #2 Create, Edit, and Delete Blog with File Upload
+
+      admin.module.ts
+        Import ReactiveFormsModule into src/app/admin/admin.module.ts
+        Complete code of admin.module.ts
+
+        Blog Service
+            Edit service file src/app/services/blog.service.ts and create these are methods getBlog, createBlog, updateBlog and deleteBlog
+
+        Blog Form Component
+            Create component blog-form for create and edit blog.
+                ng generate component admin/blog-form
+                    Import BlogService, Blog, FormBuilder, Validators, FormGroup, Router and ActivatedRoute into src/app/admin/blog-form/blog-form.component.ts
+
+        Edit file src/app/admin/blog-form/blog-form.component.html 
+
+        admin-routing.module.ts
+            Edit file src/app/admin/admin-routing.module.ts
+            Import BlogFormComponent component into src/app/admin/admin-routing.module.ts and set two routes create and edit blog. 
+
+            Complete code of admin-routing.module.ts    
+
+         Manage Blogs Component
+            Create onDelete method for detele blog in component file src/app/admin/manage-blogs/manage-blogs.component.ts    
+         Add link of Add, Edit and Delete Blog.
+         
+            
