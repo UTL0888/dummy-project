@@ -49,3 +49,23 @@ npm install @types/jquery --save-dev
 npm install @types/datatables.net --save-dev
 
 https://www.code-sample.com/2018/11/angular-7-datatable-example-datatable.html
+
+
+linux commond 
+cd  /var/www/html/test search from var 
+cd  var/www/html  search from html 
+does not found path 
+		
+		ftp 
+		sftp  secure 
+		port by default 22
+		host : ip address (192.168.2.99)
+		username :     (root)
+		password  : 564564
+    vi editor 
+    vi abc.html create file 
+    i insert 
+    Esc mode change insert 
+    ;w save 
+    ;wq! save & exit 
+    ;q! exit without save 
